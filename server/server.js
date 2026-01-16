@@ -42,8 +42,13 @@ const initDb = async () => {
 
         if (process.env.DATABASE_URL) {
             console.log('Connecting to TiDB/Remote MySQL...');
+            const dbUrl = new URL(process.env.DATABASE_URL);
             const config = {
-                uri: process.env.DATABASE_URL,
+                host: dbUrl.hostname,
+                user: dbUrl.username,
+                password: dbUrl.password,
+                database: dbUrl.pathname.slice(1),
+                port: dbUrl.port ? parseInt(dbUrl.port) : 3306,
                 ssl: {
                     minVersion: 'TLSv1.2',
                     rejectUnauthorized: true

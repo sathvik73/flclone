@@ -13,63 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database Init
-let dbConfig;
-if (process.env.DATABASE_URL) {
-    dbConfig = process.env.DATABASE_URL;
-} else {
-    dbConfig = {
-        host: process.env.DB_HOST || 'localhost',
-        user: process.env.DB_USER || 'root',
-        password: process.env.DB_PASSWORD,
-        database: process.env.DB_NAME || 'amazon_clone'
-    };
-}
-
-let connection;
-let pool;
-
-const initDb = async () => {
-    try {
-        if (!process.env.DATABASE_URL) {
-            const tempConnection = await mysql.createConnection({
-                host: dbConfig.host,
-                user: dbConfig.user,
-                password: dbConfig.password
-            });
-            await tempConnection.query(`CREATE DATABASE IF NOT EXISTS \`${dbConfig.database}\``);
-            await tempConnection.end();
-        }
-
-        if (process.env.DATABASE_URL) {
-            console.log('Connecting to TiDB/Remote MySQL...');
-            const dbUrl = new URL(process.env.DATABASE_URL);
-            const config = {
-                host: dbUrl.hostname,
-                user: dbUrl.username,
-                password: dbUrl.password,
-                database: dbUrl.pathname.slice(1),
-                port: dbUrl.port ? parseInt(dbUrl.port) : 3306,
-                ssl: {
-                    minVersion: 'TLSv1.2',
-                    rejectUnauthorized: true
-                }
-            };
-            connection = await mysql.createConnection(config);
-            pool = mysql.createPool(config);
-        } else {
-            connection = await mysql.createConnection(dbConfig);
-            pool = mysql.createPool(dbConfig);
-        }
-
-        console.log('Connected to MySQL database (Amazon)');
-        app.locals.pool = pool;
-
-    } catch (err) {
-        console.error('Database connection failed:', err.message);
-    }
-};
-
-initDb();
+// Database Connection handled in db.js used by routes
 
 app.get('/api/health', (req, res) => {
     res.json({

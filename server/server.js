@@ -58,6 +58,17 @@ const initDb = async () => {
 
 initDb();
 
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        db: app.locals.pool ? 'connected' : 'disconnected',
+        env: {
+            hasUrl: !!process.env.DATABASE_URL,
+            host: process.env.DB_HOST
+        }
+    });
+});
+
 app.get('/', (req, res) => {
     res.send('Amazon Clone API is running');
 });

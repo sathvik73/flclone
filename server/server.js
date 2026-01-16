@@ -41,8 +41,16 @@ const initDb = async () => {
         }
 
         if (process.env.DATABASE_URL) {
-            connection = await mysql.createConnection(process.env.DATABASE_URL);
-            pool = mysql.createPool(process.env.DATABASE_URL);
+            console.log('Connecting to TiDB/Remote MySQL...');
+            const config = {
+                uri: process.env.DATABASE_URL,
+                ssl: {
+                    minVersion: 'TLSv1.2',
+                    rejectUnauthorized: true
+                }
+            };
+            connection = await mysql.createConnection(config);
+            pool = mysql.createPool(config);
         } else {
             connection = await mysql.createConnection(dbConfig);
             pool = mysql.createPool(dbConfig);

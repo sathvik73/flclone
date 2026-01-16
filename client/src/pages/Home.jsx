@@ -42,7 +42,7 @@ const Home = () => {
                         <div className="grid grid-cols-2 gap-4 flex-1">
                             {['Cushion covers', 'Figurines', 'Home storage', 'Lighting'].map((item, i) => (
                                 <div key={i} className="flex flex-col">
-                                    <img src={`https://images-eu.ssl-images-amazon.com/images/G/31/IMG20/Home/2024/Gateway/BTFGw/PCQC/${186 + i}x116_Home_furnishings_2._SY116_CB584596691_.jpg`} alt={item} className="h-full object-cover mb-1" />
+                                    <img src={`https://picsum.photos/seed/${100 + i}/300/300`} alt={item} className="h-full object-cover mb-1" />
                                     <span className="text-xs text-gray-700">{item}</span>
                                 </div>
                             ))}

@@ -1,21 +1,14 @@
 {
     "version": 2,
+    "outputDirectory": "client/dist",
     "rewrites": [
         {
             "source": "/api/(.*)",
-            "destination": "/server/api/index.js"
-        },
-        {
-            "source": "/assets/(.*)",
-            "destination": "/client/dist/assets/$1"
-        },
-        {
-            "source": "/(.*)\\.(png|jpg|jpeg|gif|svg|ico)",
-            "destination": "/client/dist/$1.$2"
+            "destination": "/api/index.js"
         },
         {
             "source": "/(.*)",
-            "destination": "/client/dist/index.html"
+            "destination": "/index.html"
         }
     ]
 }

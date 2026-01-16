@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+    background-color: #f1f3f6;
+    /* Will override with Amazon default later */
+    background-color: #E3E6E6;
+    font-family: Arial, sans-serif;
+    color: #0F1111;
+}
